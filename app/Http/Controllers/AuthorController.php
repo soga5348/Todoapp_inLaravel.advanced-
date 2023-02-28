@@ -27,6 +27,11 @@ public function register(Request $request){
     
 }
 
+public function Logout(){
+  Auth::logout();
+  return redirect()->route('auth');
+  }
+
 
 
 }

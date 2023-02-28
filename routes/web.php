@@ -21,6 +21,7 @@ Route::get('/make', [TodoController::class,'make']);
 
 Route::get('/registers', [AuthorController::class,'register']); //多分authのメソッドで/registerにアクセスがあった時に専用の登録ページに遷移するようになっているのだと思うからとりあえず/registersにしている。//
 Route::post('/register', [AuthorController::class,'checkUser']);
+Route::get('/logouts', [AuthorController::class,'Logout']);
 
 Route::get('/home',[TodoController::class,'index'])->name('index');
 Route::post('/home',[TodoController::class, 'store']);
