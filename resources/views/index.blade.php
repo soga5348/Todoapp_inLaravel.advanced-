@@ -654,8 +654,8 @@ tr {
 {{--追加部分    cssを調整すればいいっぽい--}}
       <div class="auth mb-15">
         <p class="detail">「soga」でログイン中</p>
-        <form method="post" action="/logout">
-          <input type="hidden" name="_token" value="INJOyd1XvpHwKs6aAn9yW8G2RtWVhfEcqpwgdiAf">      <input class="btn btn-logout" type="submit" value="ログアウト">
+        <form method="post" action="/logouts">
+                <input class="btn btn-logout" type="submit" value="ログアウト">
         </form>
       </div>
 
