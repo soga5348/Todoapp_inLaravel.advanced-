@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="i2cpAzndVBcXU9uI5cc9Zpc2HTKP3QR2hSL90A0U">
         <style>
         /*
 ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
@@ -1584,8 +1583,9 @@ select {
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <!-- Validation Errors -->
         
-        <form method="POST" action="/todo-advance/register">
-            <input type="hidden" name="_token" value="i2cpAzndVBcXU9uI5cc9Zpc2HTKP3QR2hSL90A0U">
+        <form method="POST" action="/register">
+          @csrf
+            
             <!-- Name -->
             <div>
                 <label class="block font-medium text-sm text-gray-700" for="name">
