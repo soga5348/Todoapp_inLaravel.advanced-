@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FindController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TodoController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,43 +12,25 @@ use App\Http\Controllers\TodoController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/auth', [AuthorController::class,'check']);
-Route::post('/auth', [AuthorController::class,'checkUser']);
-Route::get('/index', [TodoController::class,'index']);
-Route::get('/make', [TodoController::class,'make']);
-
-Route::get('/registers', [AuthorController::class,'register']); //多分authのメソッドで/registerにアクセスがあった時に専用の登録ページに遷移するようになっているのだと思うからとりあえず/registersにしている。//
-Route::post('/register', [AuthorController::class,'checkUser']);
-
-Route::post('/logouts', [AuthorController::class,'Logout']);
-
-
-
-Route::get('/home',[TodoController::class,'index'])->name('index');
-Route::post('/home',[TodoController::class, 'store']);
-Route::post('/update/{todo}',[TodoController::class, 'update'])->name('update');
-Route::get('/delete/{todo}',[TodoController::class ,'delete'])->name('delete');
-
-
-
-
-
-
-
-
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('find');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/register',[RegisterController::class ,'register'])->name('register');
+Route::post('/register',[RegisterController::class,'store']);
+Route::get('login',[AuthController::class,'login'])->name('login');
+Route::post('/login',[AuthController::class,'auth'])->name('auth');
+Route::get('/logout',[AuthController::class ,'logout'])->name('logout');
 
-require __DIR__.'/auth.php';
-
-
+Route::middleware('auth')->group(function(){
+    Route::get('/index',[TodoController::class,'index'])->name('index');
+    Route::post('/index',[TodoController::class,'store'])->name('todo_store');
+    Route::post('/update/{todo}',[TodoController::class,'update'])->name('todo_update');
+    Route::get('/delete/{todo}',[TodoController::class, 'delete'])->name('delete');
+    Route::get('/find',[FindController::class, 'index'])->name('find');
+});

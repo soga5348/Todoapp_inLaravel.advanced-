@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="bllh2f1BEOgiLZui5y3EeANCQ1FrMSsZB07YwC5V">
+  <meta name="csrf-token" content="JQzhwFwY7NJpZbdvoqm3cZHurvz3eCO64dM4LmLM">
   <title>COACHTECH</title>
+  
   <link rel="stylesheet" href="http://54.65.181.123/css/common.css">
+
   <style>
     html,
 body,
@@ -358,35 +361,39 @@ tr {
 .btn-add{
   margin-bottom:5%;
 }
-
   </style>
+
   </head>
 <body class="font-sans antialiased">
   <div class="container">
     <div class="card">
       <div class="card__header">
-  <p class="title mb-15">Todo List</p>
+  <p class="title mb-15">タスク検索</p>
   <div class="auth mb-15">
     <p class="detail">「{!! auth()->user()->name !!}」でログイン中</p>
-    {{-- <form method="post" action="http://54.65.181.123/todo-advance/logout"> --}}
-      {{-- <input type="hidden" name="_token" value="bllh2f1BEOgiLZui5y3EeANCQ1FrMSsZB07YwC5V">       --}}
-      <a href="{!! route('logout') !!}"><input class="btn btn-logout" type="submit" value="ログアウト"></a>
-    {{-- </form> --}}
+    {{-- <form method="post" action="http://54.65.181.123/todo-advance/logout">
+      <input type="hidden" name="_token" value="JQzhwFwY7NJpZbdvoqm3cZHurvz3eCO64dM4LmLM">      <input class="btn btn-logout" type="submit" value="ログアウト">
+    </form> --}}
+    <a href="{!! route('logout') !!}"><input class="btn btn-logout" type="submit" value="ログアウト"></a>
   </div>
 </div>
-<a class="btn btn-search" href="{!! route('find') !!}">タスク検索</a>
 <div class="todo">
-  {!! $errors->first('content','<small >:message</small>') !!} {!! $errors->first('content_update','<small >:message</small>') !!}
-  {!! Form::open(['method' => 'post','url' => route('todo_store')]) !!}
-  
-    {!! Form::text('content',null,['class' => 'input-add']) !!}
-    
-          {{--{!! Form::select('tag',config('params.tag',null,['class' => 'select-tag'])) !!}--}}
-          {!! Form::select('tag', config('params.tag'), null, ['class' => 'select-tag']) !!}
-
-    <input class="btn btn-add" type="submit" value="追加" />
+    {!! Form::open(['method' => 'GET']) !!}
+  {{-- <form action="/todo-advance/todo/search" method="get" class="flex between mb-30"> --}}
+    {!! Form::text('text',null,['class' => 'input-add']) !!}
+    {!! Form::select('tag',config('params.tag'),null,['class' => 'select-tag']) !!}
+    {{-- <input type="hidden" name="_token" value="JQzhwFwY7NJpZbdvoqm3cZHurvz3eCO64dM4LmLM">    <input type="text" class="input-add" name="content" /> --}}
+    {{-- <select name="tag_id" class="select-tag">
+      <option disabled selected value></option>
+            <option value="1">家事</option>
+            <option value="2">勉強</option>
+            <option value="3">運動</option>
+            <option value="4">食事</option>
+            <option value="5">移動</option> --}}
+          </select>
+    <input class="btn btn-add" type="submit" value="検索" />
     {!! Form::close() !!}
-  
+  {{-- </form> --}}
   <table>
     <tr>
       <th>作成日</th>
@@ -395,32 +402,40 @@ tr {
       <th>更新</th>
       <th>削除</th>
     </tr>
+    @if(isset($todos))
+        
+    
     @foreach ($todos as $todo)
         <tr>
       <td>
         {!! $todo->updated_at !!}
       </td>
-      {!! Form::open(['method' => 'post','route' => ['todo_update',$todo]]) !!}
-    <td>
-        {!! Form::text('content_update',$todo->content,['class' => 'input-update']) !!}
-    </td>
-    <td>
-        {!! Form::select('tag', config('params.tag'), $todo->tag, ['class' => 'select-tag']) !!}
-    </td>
-    <td>
-        <button type="submit" class="btn btn-update">更新</button>
-    </td>
-{!! Form::close() !!}
+      {!! Form::open(['method' => 'post','url' => route('todo_update',$todo)]) !!}
+     
+         <td>
+          {!! Form::text('content',$todo->content,['class' => 'input-update']) !!}
+          
+        </td>
+        <td>
+          {{--{!! Form::select('tag',config('params.tag',$todo->tag ? $todo->tag : null,['class' => 'select-tag'])) !!}--}}
+          {!! Form::select('tag', config('params.tag'), null, ['class' => 'select-tag']) !!}
 
+        </td>
+        <td>
+          <button class="btn btn-update">更新</button>
+        </td>
       </form>
       <td>
         <a href="{!! route('delete',$todo) !!}"><button class="btn btn-delete"> 削除</button></a>
+        {{-- <a href="{!! route('delete',$todo) !!}">削除</a> --}}
       
       </td>
     </tr>
     @endforeach
+    @endif
       </table>
 </div>
+<a class="btn btn-back" href="{!! route('index') !!}">戻る</a>
     </div>
   </div>
 </body>

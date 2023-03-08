@@ -1591,6 +1591,16 @@ App\Providers下のRouteServiceProviderにはデフォルトで'dashboard'が指
 public const HOME = '/dashboard';
 ↓
 public const HOME = '/index';  -->
+@if ($errors->any())
+	    <div class="mb-4 mt-3 list-disc list-inside text-sm text-red-600">
+	        <ul>
+	            @foreach ($errors->all() as $error)
+	                <li>{{ $error }}</li>
+	            @endforeach
+	        </ul>
+	    </div>
+	@endif
+
         <form method="POST" action="login">
           @csrf
             

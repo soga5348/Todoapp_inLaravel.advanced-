@@ -7,6 +7,10 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+
+    private const SEEDERS = [
+        MstTagSeeder::class,
+    ];
     /**
      * Seed the application's database.
      *
@@ -14,6 +18,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        foreach(self::SEEDERS as $seeder) {
+            $this->call($seeder);
+        }
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

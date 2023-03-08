@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TodoRequest extends FormRequest
+class FindRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,25 +19,10 @@ class TodoRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    
-    
-
-        public function rules(): array
-{
-    return [
-        'content' => 'required|max:20',
-        
-    ];
-}
-
-public function messages()
-{
-    return[
-        'content.required' => '・タスクを入力してください',
-        'content.max' => '・タスクは20文字以内で入力してください。',
-        
-    ];
-}
-
-    
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
 }

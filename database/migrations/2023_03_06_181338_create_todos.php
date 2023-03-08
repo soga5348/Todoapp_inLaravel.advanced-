@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
-            $table->string('content')->comment('todoの内容');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('content')->nullable();
+            $table->string('tag')->nullable();
             $table->timestamps();
         });
     }
