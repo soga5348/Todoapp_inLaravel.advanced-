@@ -1585,9 +1585,19 @@ select {
         
         {{-- <form method="POST" action="/register">
           @csrf --}}
-          {!! Form::open() !!}
+          {!! Form::open(['route' => 'register']) !!}
+
             
             <!-- Name -->
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li style="color: red">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
             <div>
                 <label class="block font-medium text-sm text-gray-700" for="name">
     Name
@@ -1626,7 +1636,7 @@ select {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/auth">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/login">
                     Already registered?
                 </a>
 

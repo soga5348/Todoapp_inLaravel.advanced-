@@ -382,6 +382,7 @@ tr {
   {{-- <form action="/todo-advance/todo/search" method="get" class="flex between mb-30"> --}}
     {!! Form::text('text',null,['class' => 'input-add']) !!}
     {!! Form::select('tag',config('params.tag'),null,['class' => 'select-tag']) !!}
+    
     {{-- <input type="hidden" name="_token" value="JQzhwFwY7NJpZbdvoqm3cZHurvz3eCO64dM4LmLM">    <input type="text" class="input-add" name="content" /> --}}
     {{-- <select name="tag_id" class="select-tag">
       <option disabled selected value></option>
@@ -418,8 +419,11 @@ tr {
         </td>
         <td>
           {{--{!! Form::select('tag',config('params.tag',$todo->tag ? $todo->tag : null,['class' => 'select-tag'])) !!}--}}
-          {!! Form::select('tag', config('params.tag'), null, ['class' => 'select-tag']) !!}
+          {{--{!! Form::select('tag', config('params.tag'), null, ['class' => 'select-tag']) !!}--}}
+         
+          {!! Form::select('tag', config('params.tag'), $todo->tag, ['class' => 'select-tag']) !!}
 
+         
         </td>
         <td>
           <button class="btn btn-update">更新</button>

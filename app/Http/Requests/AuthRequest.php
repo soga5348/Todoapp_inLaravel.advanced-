@@ -19,10 +19,15 @@ class AuthRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:191',
+            'email' => 'required|email|unique:users,email|min:8|max:191',
+            'password' => 'required|min:8|max:191|confirmed',
+            'password_confirmation' => 'required',
         ];
     }
+
+    
 }

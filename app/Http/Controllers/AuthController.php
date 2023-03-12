@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthRequest;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+ 
 class AuthController extends Controller
 {
     public function login(){
         return view('login');
     }
-    public function auth(AuthRequest $request){
+    public function auth(LoginRequest $request){
         $credentails = $request->only('email','password');
         if(Auth::attempt($credentails)){
             return redirect()->route('index');
